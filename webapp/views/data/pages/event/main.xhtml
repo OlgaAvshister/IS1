@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <p:outputLabel value="Event"/>
+    <ui:include src="../../head.xhtml"/>
+    <h:form id="eventTableForm">
+       <p:poll interval="2" update="eventTableForm"/>
+
+        <ui:include src="table.xhtml"/>
+        <div style="text-align: right;">
+            <p:commandButton
+                    value="Add"
+                    action="#{eventBean.emptyInstance()}"
+                    update="eventCreatePanel:eventCreateComponentDialog"
+                    oncomplete="PF('eventCreateComponentDialog').show();">
+            </p:commandButton>
+        </div>
+    </h:form>
+
+    <h:form id="eventCreatePanel">
+        <p:dialog id="eventCreateComponentDialog" widgetVar="eventCreateComponentDialog" header="Create event">
+            <ui:include src="inputPanel.xhtml"/>
+            <p:commandButton value="Add" action="#{eventBean.addItem}"
+                             update="eventTableForm :eventCreatePanel"
+                             onerror="handleError(xhr, status, error)"
+            />
+        </p:dialog>
+        <p:messages globalOnly="false" showDetail="true" showSummary="true"/>
+    </h:form>
+
+    <h:form id="eventEditPanel">
+        <p:dialog
+                id="eventComponentDialog"
+                widgetVar="eventComponentDialog"
+                header="Edit event"
+                closable="false"
+        >
+            <ui:include src="inputPanel.xhtml"/>
+            <p:commandButton value="Edit" action="#{eventBean.editItem()}"
+                             rendered="#{userBean.admin || userBean.id == eventBean.itemsStack.peek().owner.id}"
+                             update="eventTableForm"
+                             onclick="PF('eventComponentDialog').hide();"/>
+            <p:commandButton value="Remove" action="#{eventBean.removeItem()}"
+                             rendered="#{userBean.admin || userBean.id == eventBean.itemsStack.peek().owner.id}"
+                             update="eventTableForm"
+                             onclick="PF('eventComponentDialog').hide();"/>
+            <p:commandButton value="Close" action="#{eventBean.freeStack()}"
+                             update="eventTableForm"
+                             onclick="PF('eventComponentDialog').hide();"/>
+        </p:dialog>
+    </h:form>
+
+</h:body>
+</html>

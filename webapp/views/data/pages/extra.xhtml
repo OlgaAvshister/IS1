@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:include src="../head.xhtml"/>
+    <br/>
+    <h:form>
+        <h:outputLabel value="Вернуть массив объектов, значение поля number которых больше заданного."/>
+        <br/>
+        <h:outputLabel value="Введите number"/>
+        <p:spinner value="#{greaterNumberBean.minNumber}" min="0" required="true"/>
+        <br/>
+        <p:commandButton value="Вернуть массив" action="#{greaterNumberBean.getTickets}" update="@form"/>
+        <br/>
+        <p:dataTable value="#{greaterNumberBean.tickets}" var="ticket" rendered="#{not empty greaterNumberBean.tickets}">
+            <p:column headerText="ID">
+                <h:outputText value="#{ticket.id}" />
+            </p:column>
+                <p:column headerText="Name">
+                <h:outputText value="#{ticket.name}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+    <br/>
+    <h:form>
+        <h:outputLabel value="Вернуть количество объектов, значение поля number которых больше заданного."/>
+        <br/>
+        <h:outputLabel value="Введите number"/>
+        <p:spinner value="#{moreNumberTicketBean.minNumber}" min="0" required="true"/>
+        <br/>
+        <p:commandButton value="Подсчитать" action="#{moreNumberTicketBean.count}" update="@form"/>
+        <br/>
+        <h:outputText value="Количество объектов:#{moreNumberTicketBean.objectCount}"/>
+    </h:form>
+    <br/>
+    <h:form>
+        <h:outputLabel value="Вернуть количество объектов, значение поля venue которых меньше заданного."/>
+        <br/>
+        <h:outputLabel value="Введите venue id"/>
+        <p:spinner value="#{lessVenueTicketBean.maxVenue}" min="0" required="true"/>
+        <br/>
+        <p:commandButton value="Подсчитать" action="#{lessVenueTicketBean.count}" update="@form"/>
+        <br/>
+        <h:outputText value="Количество объектов:#{lessVenueTicketBean.objectCount}"/>
+    </h:form>
+    <br/>
+    <h:form>
+        <h:outputLabel value="Скопировать указанный билет, создав такой же, но с категорией VIP и удвоенной ценой."/>
+        <br/>
+        <p:selectOneMenu value="#{vipTicketBean.ticketId}" required="true">
+            <f:selectItems value="#{ticketBean.idList}" var="id" itemValue="#{id}"
+                           itemLabel="#{id}"/>
+        </p:selectOneMenu>
+        <br/>
+        <p:commandButton value="Копировать билет" action="#{vipTicketBean.copyTicket}" update="@form"/>
+        <h:outputText value="Создан новый билет:#{vipTicketBean.newTicketDetails}"
+                              rendered="#{vipTicketBean.newTicketDetails != null}"/>
+    </h:form>
+    <br/>
+    <h:form>
+        <h:outputLabel
+                value="Создать новый билет на основе указанного, указав скидку в заданное число % и одновременно увеличив цену билета на ту же самую сумму."/>
+        <br/>
+        <p:selectOneMenu value="#{discountTicketBean.ticketId}" required="true">
+            <f:selectItems value="#{ticketBean.idList}" var="id" itemValue="#{id}"
+                           itemLabel="#{id}"/>
+        </p:selectOneMenu>
+        <br/>
+        <h:outputLabel value="Введите процент скидки:"/>
+        <p:spinner value="#{discountTicketBean.discountPercentage}" min="0" max="100" required="true"/>
+        <br/>
+        <p:commandButton value="Создать новый билет" action="#{discountTicketBean.createNewTicket}" update="@form"/>
+            <h:outputText value="Создан новый билет:#{discountTicketBean.newTicketDetails}"
+                          rendered="#{discountTicketBean.newTicketDetails != null}"/>
+    </h:form>
+</h:body>
+</html>

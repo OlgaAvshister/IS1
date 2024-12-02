@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <p:outputLabel value="Person"/>
+    <ui:include src="../../head.xhtml"/>
+    <h:form id="personTableForm">
+       <p:poll interval="2" update="personTableForm"/>
+
+        <ui:include src="table.xhtml"/>
+        <div style="text-align: right;">
+            <p:commandButton
+                    value="Add"
+                    action="#{personBean.emptyInstance()}"
+                    update="personCreatePanel:personCreateComponentDialog"
+                    oncomplete="PF('personCreateComponentDialog').show();">
+            </p:commandButton>
+        </div>
+
+    </h:form>
+
+
+    <h:form id="personCreatePanel">
+        <p:dialog id="personCreateComponentDialog" widgetVar="personCreateComponentDialog" header="Create person">
+            <ui:include src="inputPanel.xhtml"/>
+            <p:commandButton value="Add" action="#{personBean.addItem()}"
+                             update="personTableForm :personCreatePanel"
+                             onerror="handleError(xhr, status, error)"
+            />
+        </p:dialog>
+        <p:messages globalOnly="false" showDetail="true" showSummary="true"/>
+    </h:form>
+
+    <h:form id="personEditPanel">
+        <p:dialog
+                id="personComponentDialog"
+                widgetVar="personComponentDialog"
+                header="Edit person"
+                closable="false"
+        >
+            <ui:include src="inputPanel.xhtml"/>
+            <p:commandButton value="Edit" action="#{personBean.editItem()}"
+                             rendered="#{userBean.admin || userBean.id == personBean.itemsStack.peek().owner.id}"
+                             update="personTableForm"
+                             onclick="PF('personComponentDialog').hide();"/>
+            <p:commandButton value="Remove" action="#{personBean.removeItem()}"
+                             rendered="#{userBean.admin || userBean.id == personBean.itemsStack.peek().owner.id}"
+                             update="personTableForm"
+                             onclick="PF('personComponentDialog').hide();"/>
+            <p:commandButton value="Close" action="#{personBean.freeStack()}"
+                             update="personTableForm"
+                             onclick="PF('personComponentDialog').hide();"/>
+        </p:dialog>
+    </h:form>
+
+</h:body>
+</html>

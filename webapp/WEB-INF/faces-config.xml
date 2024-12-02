@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+
+    <factory>
+        <exception-handler-factory>org.lab1.context.MyExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+
+    <navigation-rule>
+        <from-view-id>/views/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{userBean.validateUser}</from-action>
+            <from-outcome>true</from-outcome>
+            <to-view-id>/views/data/pages/ticket/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{userBean.logout}</from-action>
+            <from-outcome>1</from-outcome>
+            <to-view-id>/views/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goCoordinates}</from-action>
+            <from-outcome>coordinate</from-outcome>
+            <to-view-id>/views/data/pages/coordinate/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goAddress}</from-action>
+            <from-outcome>address</from-outcome>
+            <to-view-id>/views/data/pages/address/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goEvent}</from-action>
+            <from-outcome>event</from-outcome>
+            <to-view-id>/views/data/pages/event/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goLocation}</from-action>
+            <from-outcome>location</from-outcome>
+            <to-view-id>/views/data/pages/location/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goPerson}</from-action>
+            <from-outcome>person</from-outcome>
+            <to-view-id>/views/data/pages/person/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goTicket}</from-action>
+            <from-outcome>ticket</from-outcome>
+            <to-view-id>/views/data/pages/ticket/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goVenue}</from-action>
+            <from-outcome>venue</from-outcome>
+            <to-view-id>/views/data/pages/venue/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goExtra}</from-action>
+            <from-outcome>extra</from-outcome>
+            <to-view-id>/views/data/pages/extra.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goUsers}</from-action>
+            <from-outcome>users</from-outcome>
+            <to-view-id>/views/data/pages/userRequests.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-action>#{menuBean.goChanges}</from-action>
+            <from-outcome>changes</from-outcome>
+            <to-view-id>/views/data/pages/changes.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <p:outputLabel value="Location"/>
+    <ui:include src="../../head.xhtml"/>
+    <h:form id="locationTableForm">
+       <p:poll interval="2" update="locationTableForm"/>
+
+        <ui:include src="table.xhtml"/>
+        <div style="text-align: right;">
+            <p:commandButton
+                    value="Add"
+                    action="#{locationBean.emptyInstance()}"
+                    update="locationCreatePanel:locationCreateComponentDialog"
+                    oncomplete="PF('locationCreateComponentDialog').show();">
+            </p:commandButton>
+        </div>
+    </h:form>
+
+    <h:form id="locationCreatePanel">
+        <p:dialog id="locationCreateComponentDialog" widgetVar="locationCreateComponentDialog" header="Create location">
+            <ui:include src="inputPanel.xhtml"/>
+            <p:commandButton value="Add" action="#{locationBean.addItem()}"
+                             update="locationTableForm :locationCreatePanel"
+                             onerror="handleError(xhr, status, error)"
+            />
+        </p:dialog>
+        <p:messages globalOnly="false" showDetail="true" showSummary="true"/>
+    </h:form>
+
+    <h:form id="locationEditPanel">
+        <p:dialog
+                id="locationComponentDialog"
+                widgetVar="locationComponentDialog"
+                header="Edit location"
+                closable="false"
+        >
+            <ui:include src="inputPanel.xhtml"/>
+            <p:commandButton value="Edit" action="#{locationBean.editItem()}"
+                             rendered="#{userBean.admin || userBean.id == locationBean.itemsStack.peek().owner.id}"
+                             update="locationTableForm"
+                             onclick="PF('locationComponentDialog').hide();"/>
+            <p:commandButton value="Remove" action="#{locationBean.removeItem()}"
+                             rendered="#{userBean.admin || userBean.id == locationBean.itemsStack.peek().owner.id}"
+                             update="locationTableForm"
+                             onclick="PF('locationComponentDialog').hide();"/>
+            <p:commandButton value="Close" action="#{locationBean.freeStack()}"
+                             update="locationTableForm"
+                             onclick="PF('locationComponentDialog').hide();"/>
+        </p:dialog>
+    </h:form>
+
+</h:body>
+</html>

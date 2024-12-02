@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:composition>
+
+        <p:dataTable var="coordinate" value="#{coordinatesBean.items}"
+                     paginator="true" rows="5"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15">
+
+
+            <p:column
+                    headerText="ID"
+                    sortBy="#{coordinate.id}"
+                    filterBy="#{coordinate.id}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{coordinate.id}"/>
+            </p:column>
+
+            <p:column
+                    headerText="X"
+                    sortBy="#{coordinate.x}"
+                    filterBy="#{coordinate.x}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{coordinate.x}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Y"
+                    sortBy="#{coordinate.y}"
+                    filterBy="#{coordinate.y}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{coordinate.y}"/>
+            </p:column>
+
+            <p:column headerText="Edit">
+                <p:commandButton
+                        value="edit"
+                        rendered="#{userBean.admin || userBean.id == coordinate.owner.id}"
+                        action="#{coordinateBean.setSelectedItem(coordinate)}"
+                        update="coordinateEditPanel:coordinateComponentDialog"
+                        oncomplete="PF('coordinateComponentDialog').show();">
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+
+    </ui:composition>
+</h:body>
+</html>

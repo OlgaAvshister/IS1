@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>org.lab1.data.entity.Address</class>
+        <class>org.lab1.data.entity.Coordinates</class>
+        <class>org.lab1.data.entity.Event</class>
+        <class>org.lab1.data.entity.Location</class>
+        <class>org.lab1.data.entity.Person</class>
+        <class>org.lab1.data.entity.Ticket</class>
+        <class>org.lab1.data.entity.User</class>
+        <class>org.lab1.data.entity.Venue</class>
+        <class>org.lab1.data.entity.Change</class>
+        <class>org.lab1.data.entity.enums.Color</class>
+        <class>org.lab1.data.entity.enums.EventType</class>
+        <class>org.lab1.data.entity.enums.TicketType</class>
+        <class>org.lab1.data.entity.enums.VenueType</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/newDB"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="Ol14avma29"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

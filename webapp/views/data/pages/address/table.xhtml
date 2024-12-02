@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:composition>
+        <p:dataTable var="address" value="#{addressBean.items}"
+                     paginator="true" rows="5"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15">
+
+            <p:column
+                    headerText="ID"
+                    sortBy="#{address.id}"
+                    filterBy="#{address.id}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{address.id}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Street"
+                    sortBy="#{address.street}"
+                    filterBy="#{address.street}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{address.street}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Zipcode"
+                    sortBy="#{address.zipCode}"
+                    filterBy="#{address.zipCode}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{address.zipCode}"/>
+            </p:column>
+
+
+            <p:column headerText="Edit">
+                <p:commandButton
+                        value="edit"
+                        rendered="#{userBean.admin || userBean.id == address.owner.id}"
+                        action="#{addressBean.setSelectedItem(address)}"
+                        update="addressEditPanel:addressComponentDialog"
+                        oncomplete="PF('addressComponentDialog').show();">
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+    </ui:composition>
+</h:body>
+</html>

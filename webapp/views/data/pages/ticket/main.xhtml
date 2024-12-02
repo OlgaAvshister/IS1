@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <p:outputLabel value="Ticket"/>
+    <ui:include src="../../head.xhtml"/>
+    <h:form id="ticketTableForm">
+       <p:poll interval="2" update="ticketTableForm"/>
+
+        <ui:include src="table.xhtml">
+            <ui:param name="bean" value="#{ticketBean}"/>
+            <ui:param name="needEdit" value="#{true}"/>
+        </ui:include>
+        <div style="text-align: right;">
+            <p:commandButton
+                    value="Add"
+                    action="#{ticketBean.emptyInstance()}"
+                    update="ticketCreatePanel:ticketCreateComponentDialog"
+                    oncomplete="PF('ticketCreateComponentDialog').show();">
+            </p:commandButton>
+        </div>
+    </h:form>
+
+    <h:form id="ticketCreatePanel">
+        <p:dialog id="ticketCreateComponentDialog" widgetVar="ticketCreateComponentDialog"
+                  header="Create ticket">
+            <ui:include src="inputPanel.xhtml"/>
+            <p:commandButton value="Add" action="#{ticketBean.addItem()}"
+                             update="ticketTableForm :ticketCreatePanel"
+                             onerror="handleError(xhr, status, error)"
+            />
+        </p:dialog>
+        <p:messages globalOnly="false" showDetail="true" showSummary="true"/>
+    </h:form>
+
+    <ui:include src="editPanel.xhtml"/>
+
+    <h:form id="hiddenForm" style="display: none;">
+        <p:remoteCommand name="onload" actionListener="#{ticketBean.editStack()}"
+                         oncomplete="console.log('Page loaded');"/>
+    </h:form>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            onload();
+        });
+
+    </script>
+</h:body>
+</html>

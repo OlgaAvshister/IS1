@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:composition>
+        <h:outputLabel value="#{ticketBean.itemsStack.size()}"/>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="ID:"/>
+            <h:outputLabel value="#{ticketBean.itemsStack.peek().id}"/>
+
+            <h:outputLabel value="Name:"/>
+            <p:inputText value="#{ticketBean.itemsStack.peek().name}" required="true"
+                         validatorMessage="Name is required">
+                <f:validateLength minimum="1" maximum="50"/>
+            </p:inputText>
+
+            <h:outputLabel value="Coordinates:"/>
+            <p:selectOneMenu value="#{ticketBean.itemsStack.peek().coordinatesId}" required="true"
+                             validatorMessage="Coordinates are required">
+                <f:selectItems value="#{coordinatesBean.idList}" var="id" itemValue="#{id}"
+                               itemLabel="#{id}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Creation Date:"/>
+            <p:outputLabel value="#{ticketBean.itemsStack.peek().creationDate}" showTime="true" required="true"
+                          validatorMessage="Creation date is required">
+                <f:convertDateTime pattern="yyyy-MM-dd" type="Date"/>
+            </p:outputLabel>
+
+            <h:outputLabel value="Person:"/>
+            <p:selectOneMenu value="#{ticketBean.itemsStack.peek().personId}" required="false"
+                             validatorMessage="Person can be null">
+                <f:selectItems value="#{personBean.idList}" var="id" itemValue="#{id}"
+                               itemLabel="#{id}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Event:"/>
+            <p:selectOneMenu value="#{ticketBean.itemsStack.peek().eventId}" required="true"
+                             validatorMessage="Event is required">
+                <f:selectItems value="#{eventBean.idList}" var="id" itemValue="#{id}" itemLabel="#{id}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Price:"/>
+            <p:spinner value="#{ticketBean.itemsStack.peek().price}" min="1.0" stepFactor="0.01" required="true"
+                       validatorMessage="Price is required"/>
+
+            <h:outputLabel value="Ticket Type:"/>
+            <p:selectOneMenu value="#{ticketBean.itemsStack.peek().type}" required="true"
+                             validatorMessage="Ticket type is required">
+                <f:selectItems value="#{ticketTypeBean.typeList}" var="type" itemValue="#{type}" itemLabel="#{type}"/>
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Discount (%):"/>
+            <p:spinner value="#{ticketBean.itemsStack.peek().discount}" min="0" max="100" required="true"
+                       validatorMessage="Discount must be between 0 and 100"/>
+
+            <h:outputLabel value="Number:"/>
+            <p:spinner value="#{ticketBean.itemsStack.peek().number}" min="0" required="false"
+                       validatorMessage="Number can be null"/>
+
+            <h:outputLabel value="Venue:"/>
+            <p:selectOneMenu value="#{ticketBean.itemsStack.peek().venueId}" required="true"
+                             validatorMessage="Venue is required">
+                <f:selectItems value="#{venueBean.idList}" var="id" itemValue="#{id}" itemLabel="#{id}"/>
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <p:messages globalOnly="false" showDetail="true" showSummary="true"/>
+    </ui:composition>
+</h:body>
+
+</html>

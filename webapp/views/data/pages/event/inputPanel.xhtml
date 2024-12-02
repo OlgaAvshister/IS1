@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:composition>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Id:"/>
+            <h:outputLabel value="#{eventBean.itemsStack.peek().id}"/>
+            <h:outputLabel value="Name:"/>
+            <p:inputText value="#{eventBean.itemsStack.peek().name}" required="true"/>
+            <h:outputLabel value="ZoneDateTime:"/>
+            <p:calendar id="dateInput" value="#{eventBean.itemsStack.peek().localDate}" showTime="true" pattern="dd.MM.yyyy HH:mm"/>
+            <h:outputLabel value="MinAge:"/>
+            <p:inputText value="#{eventBean.itemsStack.peek().minAge}" required="false"/>
+            <h:outputLabel value="TicketsCount:"/>
+            <p:inputText value="#{eventBean.itemsStack.peek().ticketsCount}" min="0" required="true"/>
+            <h:outputLabel value="Event Type:"/>
+            <p:selectOneMenu value="#{eventBean.itemsStack.peek().eventType}" required="false">
+                <f:selectItems value="#{eventTypeBean.typeList}" var="type" itemValue="#{type}" itemLabel="#{type}"/>
+            </p:selectOneMenu>
+        </h:panelGrid>
+    </ui:composition>
+</h:body>
+</html>

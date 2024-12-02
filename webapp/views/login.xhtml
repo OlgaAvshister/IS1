@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xml:lang="EN">
+<h:head>
+    <title>Login Page</title>
+</h:head>
+<h:body>
+    <h:form id="loginForm">
+        <p:growl id="growl" showDetail="true" life="3000" />
+        <p:panel id="loginPanel" header="Login">
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputLabel for="username" value="Username:" />
+                <p:inputText id="username" value="#{userBean.login}" required="true" />
+                <p:message for="username" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <p:password id="password" value="#{userBean.password}" required="true" />
+                <p:message for="password" />
+            </h:panelGrid>
+            <p:commandButton value="Login" action="#{userBean.validateUser}" update="growl" />
+        </p:panel>
+        <p:message id="authMessage" for="loginPanel"/>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:composition>
+
+        <h:form id="ticketEditPanel">
+
+            <p:dialog
+                    id="ticketComponentDialog"
+                    widgetVar="ticketComponentDialog"
+                    header="Edit ticket"
+                    closable="false"
+            >
+                <ui:include src="inputPanel.xhtml"/>
+                <p:commandButton value="Edit" action="#{ticketBean.editItem()}"
+                                 rendered="#{userBean.admin || userBean.id == ticketBean.itemsStack.peek().owner.id}"
+                                 onclick="PF('ticketComponentDialog').hide();"
+                                 update="ticketTableForm"
+                />
+                <p:commandButton value="Remove" action="#{ticketBean.removeItem()}"
+                                 rendered="#{userBean.admin || userBean.id == ticketBean.itemsStack.peek().owner.id}"
+                                 update="ticketTableForm"
+                                 onclick="PF('ticketComponentDialog').hide();"/>
+                <p:commandButton value="Close" action="#{ticketBean.freeStack()}"
+                                 update="ticketTableForm"
+                                 onclick="PF('ticketComponentDialog').hide();"/>
+            </p:dialog>
+
+        </h:form>
+
+    </ui:composition>
+
+    <!--    </ui:>-->
+</h:body>
+</html>

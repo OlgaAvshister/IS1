@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:composition>
+        <p:dataTable var="location" value="#{locationBean.items}"
+                     paginator="true" rows="5"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15">
+
+            <p:column
+                    headerText="ID"
+                    sortBy="#{location.id}"
+                    filterBy="#{location.id}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{location.id}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Name"
+                    sortBy="#{location.name}"
+                    filterBy="#{location.name}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{location.name}"/>
+            </p:column>
+
+            <p:column
+                    headerText="X"
+                    sortBy="#{location.x}"
+                    filterBy="#{location.x}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{location.x}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Y"
+                    sortBy="#{location.y}"
+                    filterBy="#{location.y}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{location.y}"/>
+            </p:column>
+            <p:column headerText="Edit">
+                <p:commandButton
+                        value="edit"
+                        rendered="#{userBean.admin || userBean.id == location.owner.id}"
+                        action="#{locationBean.setSelectedItem(location)}"
+                        update="locationEditPanel:locationComponentDialog"
+                        oncomplete="PF('locationComponentDialog').show();">
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+    </ui:composition>
+</h:body>
+</html>

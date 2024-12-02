@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xml:lang="EN">
+<h:head>
+    <title>Register Page</title>
+</h:head>
+<h:body>
+    <h:form id="registerForm">
+        <p:growl id="growl" showDetail="true" life="3000" />
+        <p:panel id="registerPanel" header="Register">
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputLabel for="username" value="Username:" />
+                <p:inputText id="username" value="#{userBean.login}" required="true" />
+                <p:message for="username" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <p:password id="password" value="#{userBean.password}" required="true" />
+                <p:message for="password" />
+
+                <h:outputLabel for="isAdmin" value="Admin:" />
+                <p:selectOneRadio id = "isAdmin" value="#{userBean.admin}">
+                    <f:selectItem itemLabel="True" itemValue="#{true}"/>
+                    <f:selectItem itemLabel="False" itemValue="#{false}"/>
+                </p:selectOneRadio>
+
+            </h:panelGrid>
+            <p:commandButton value="Register" action="#{userBean.register}" update="growl" />
+        </p:panel>
+        <p:message id="regMessage" for="registerPanel"/>
+    </h:form>
+</h:body>
+</html>

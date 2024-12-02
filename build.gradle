@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+war {
+    from 'src/main/webapp'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+
+    implementation('org.postgresql:postgresql:42.7.2')
+
+    compileOnly('javax:javaee-web-api:8.0.1')
+    implementation 'org.hibernate:hibernate-core:6.1.1.Final'
+    implementation('org.primefaces:primefaces:8.0')
+    implementation('org.primefaces.themes:all-themes:1.0.10')
+
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    // Ad Lombok dependency
+    compileOnly('org.projectlombok:lombok:1.18.34')
+    annotationProcessor('org.projectlombok:lombok:1.18.34')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+tasks.register('createAndCopyWar', Copy) {
+    // Source file
+    from file("build\\libs\\IS_lab1-1.0-SNAPSHOT.war")
+
+    // Destination directory.
+    into file("C:\\Users\\olyaa\\wildfly-20.0.1.Final\\standalone\\deployments\\")
+
+    dependsOn war
+
+    // Optional, but highly recommended for overwriting during updates
+    includeEmptyDirs = false
+}

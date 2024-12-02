@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
+        <property name="current_session_context_class">thread</property>
+        <mapping class="org.lab1.data.entity.Address"/>
+        <mapping class="org.lab1.data.entity.Coordinates"/>
+        <mapping class="org.lab1.data.entity.Event"/>
+        <mapping class="org.lab1.data.entity.Location"/>
+        <mapping class="org.lab1.data.entity.Person"/>
+        <mapping class="org.lab1.data.entity.Ticket"/>
+        <mapping class="org.lab1.data.entity.User"/>
+        <mapping class="org.lab1.data.entity.Venue"/>
+        <mapping class="org.lab1.data.entity.Change"/>
+        <mapping class="org.lab1.data.entity.enums.Color"/>
+        <mapping class="org.lab1.data.entity.enums.EventType"/>
+        <mapping class="org.lab1.data.entity.enums.TicketType"/>
+        <mapping class="org.lab1.data.entity.enums.VenueType"/>
+    </session-factory>
+</hibernate-configuration>

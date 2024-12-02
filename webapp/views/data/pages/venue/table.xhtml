@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xml:lang="EN">
+<h:head><title></title></h:head>
+<h:body>
+    <ui:composition>
+        <p:dataTable var="venue" value="#{venueBean.items}"
+                     paginator="true" rows="5"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15">
+
+            <p:column
+                    headerText="ID"
+                    sortBy="#{venue.id}"
+                    filterBy="#{venue.id}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{venue.id}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Name"
+                    sortBy="#{venue.name}"
+                    filterBy="#{venue.name}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{venue.name}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Capacity"
+                    sortBy="#{venue.capacity}"
+                    filterBy="#{venue.capacity}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{venue.capacity}"/>
+            </p:column>
+
+            <p:column
+                    headerText="Venue type"
+                    sortBy="#{venue.type}"
+                    filterBy="#{venue.type}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{venue.type}"/>
+            </p:column>
+            <p:column
+                    headerText="Address"
+                    sortBy="#{venue.address.id}"
+                    filterBy="#{venue.address.id}"
+                    filterMatchMode="contains">
+                <h:outputText value="#{venue.address.id}"/>
+            </p:column>
+
+
+            <p:column headerText="Edit">
+                <p:commandButton
+                        value="edit"
+                        rendered="#{userBean.admin || userBean.id == venue.owner.id}"
+                        action="#{venueBean.setSelectedItem(venue)}"
+                        update="venueEditPanel:venueComponentDialog"
+                        oncomplete="PF('venueComponentDialog').show();">
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+    </ui:composition>
+</h:body>
+</html>
